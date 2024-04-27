@@ -1,0 +1,44 @@
+NAME = libftprintf.a
+CC = gcc
+FLAGS = -c
+LIBFT = ./libft/libft.a
+
+SRCS	= ft_change_base.c ft_count_output.c \
+    	ft_printf.c ft_tolower_all.c ft_treat_hexa.c \
+    	ft_treat_int.c ft_treat_point.c 
+		ft_treat_something.c ft_treat_string.c \
+    	ft_treat_uint.c ft_treat_char.c ft_putstr_count.c
+
+SURPL_O = ft_change_base.o \
+    ft_count_output.o \
+    ft_printf.o \
+    ft_tolower_all.o \
+    ft_treat_hexa.o \
+    ft_treat_int.o \
+    ft_treat_point.o \
+    ft_treat_something.o \
+    ft_treat_string.o \
+    ft_treat_uint.o \
+    ft_treat_char.o \
+    ft_putstr_count.o
+
+OBJS	= $(SRCS:.c=.o)
+
+$(NAME): $(OBJS)
+    $(MAKE) -C ./libft
+    cp libft/libft.a $(NAME)
+    $(CC) $(FLAGS) $(SRCS)
+    ar -rcs $(NAME) $(OBJS)
+
+all : $(NAME)
+
+clean :
+    $(MAKE) clean -C ./libft
+    rm -rf $(SURPL_O) 
+    rm -rf $(OBJS)
+
+fclean : clean
+    $(MAKE) fclean -C ./libft
+    rm -rf $(NAME)
+
+re : fclean all
