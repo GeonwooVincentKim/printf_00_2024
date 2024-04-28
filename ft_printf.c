@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 12:12:24 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 21:16:53 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:24:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_ftprintf	*ft_initialize_tab(t_ftprintf *tab)
 	tab->sign = 0;
 	tab->total_length = 0;
 	tab->is_zero = 0;
+	tab->plus = 0;
 	tab->dash = 0;
 	tab->percent = 0;
 	tab->space = 0;

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 20:42:16 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 21:19:44 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:34:18 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,4 @@ void	ft_print_str(t_ftprintf *tab)
 	len = ft_strlen(str);
 	if (!tab->point || tab->precision > len)
 		tab->precision = len;
-	// if (tab->po)
 }
