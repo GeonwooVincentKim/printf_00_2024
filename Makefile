@@ -46,7 +46,7 @@
 # .PHONY:	all clean fclean re
 
 SRCS	= ft_printf.c
-OBJS	= $(SRC:.c=.o)
+OBJS	= $(SRCS:.c=.o)
 
 NAME	= libftprintf.a
 CC		= cc
@@ -57,5 +57,20 @@ LIBFT	= ./libft/libft.a
 %.o:%.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): (OBJS)
+$(NAME): $(OBJS)
+	$(MAKE) -C ./libft
 	ar rcs $(NAME) $(OBJS)
+
+all: $(NAME)
+
+clean:
+	$(MAKE) clean -C ./libft
+	$(RM) $(OBJS)
+
+fclean : clean
+	$(MAKE) fclean -C ./libft
+	$(RM) $(NAME)
+
+re: fclean	all
+
+.PHONY: all clean fclean re

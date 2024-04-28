@@ -6,8 +6,20 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 12:12:24 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 12:12:28 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/28 13:40:42 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+int	ft_printf(const char	*str, ...)
+{
+	int	i;
 
+	i = 0;
+	str = "1234";
+
+	while (str[i])
+	{
+		i++;
+	}
+	return (i);
+}
