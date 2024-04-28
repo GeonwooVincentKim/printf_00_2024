@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 12:12:24 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 15:31:08 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/28 21:16:53 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_ftprintf	*ft_initialize_tab(t_ftprintf *tab)
 	tab->dash = 0;
 	tab->percent = 0;
 	tab->space = 0;
+	tab->hash_tag = 0;
 	return (tab);
 }
 
@@ -54,4 +55,30 @@ int	ft_printf(const char	*str, ...)
 	ret += tab->total_length;
 	free(tab);
 	return (ret);
+}
+
+static void	pf_subprocess(char c, t_ftprintf *tab)
+{
+	if (ft_isdigit(c))
+	{
+		if (tab->point || tab->zero)
+			tab->precision = tab->precision * 10 + c - '0';
+		else
+		{
+			if (!tab->width && c == '0')
+				tab->zero = 1;
+			else
+				tab->width = tab->width * 10 + c - '0';
+		}
+	}
+	else if (c == '#')
+		tab->hash_tag = 1;
+	else if (c == '-')
+		tab->dash = 1;
+	else if (c == '.')
+		tab->point = 1;
+	else if (c == '%')
+		tab->percent = 1;
+	else if (c == ' ')
+		tab->space = 1;
 }
