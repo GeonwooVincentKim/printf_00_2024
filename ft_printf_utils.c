@@ -6,12 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 20:42:16 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 22:23:25 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:40:46 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
-
 // va_arg - variadic function
 // ft_update_tab - calculate special cases and length
 // !tab->dash - if width and not flag, handle right alignment
@@ -41,17 +40,17 @@ void	ft_print_str(t_ftprintf *tab)
 	if (!tab->point || tab->precision > len)
 		tab->precision = len;
 	if (tab->width > tab->precision)
-		tab->print_screen = tab->width - tab->precision;
-	tab->total_length += tab->print_screen + tab->precision;
+		tab->pt_screen = tab->width - tab->precision;
+	tab->length += tab->pt_screen + tab->precision;
 	if (tab->dash)
 	{
 		ft_putstr_fd((char *) str, 1);
-		while (tab->print_screen--)
+		while (tab->pt_screen--)
 			ft_putchar_fd(' ', 1);
 	}
 	else
 	{
-		while (tab->print_screen--)
+		while (tab->pt_screen--)
 			ft_putchar_fd(' ', 1);
 		ft_putnstr_fd((char *)str, tab->precision, 1);
 	}
@@ -67,22 +66,80 @@ void	ft_printf_ptr(t_ftprintf *tab)
 
 	n = va_arg(tab->args, long long) + ULONG_MAX + 1;
 	len = ft_unumlen(n, 16) + 2;
-
 	if (tab->width > len)
-		tab->print_screen = tab->width - len;
-	tab->total_length += tab->print_screen + len;
+		tab->pt_screen = tab->width - len;
+	tab->length += tab->pt_screen + len;
 	if (tab->dash)
 	{
 		ft_putstr_fd("0x", 1);
 		ft_putunbr_base_fd(n, 16, 1);
-		while (tab->print_screen--)
+		while (tab->pt_screen--)
 			ft_putchar_fd(' ', 1);
 	}
 	else
 	{
-		while (tab->print_screen--)
+		while (tab->pt_screen--)
 			ft_putchar_fd(' ', 1);
 		ft_putstr_fd("0x", 1);
 		ft_putunbr_base_fd(n, 16, 1);
+	}
+}
+
+// void	ft_printf_int(t_ftprintf *tab)
+// {
+// 	int	n = va_arg(tab->args, int);
+// 	int	len;
+// 	int	alen;
+
+// 	len = ft_numlen(n, 10);
+// 	alen = ft_unumlen(ft_abs(n), 10);
+// 	if (tab->precision > alen)
+// 		tab->pad = tab->precision - alen;
+// 	if (tab->zero && n < 0 && tab->pad)
+// 		--tab->pad;
+// 	if (tab->width > tab->pad + len)
+// 		tab->pt_screen = tab->pt_screen - tab->pad - len;
+// 	if ((tab->space || tab->plus) && n >= 0 && ++tab->length && tab->pt_screen)
+// 		--tab->pt_screen;
+// 	tab->length += tab->pt_screen + tab->pad + len;
+// 	if (tab->dash)
+// 	{
+// 		ft_putfnbr_base_fd(n, 10, tab, 1);
+// 		while (tab->pt_screen--)
+// 			ft_putchar_fd(' ', 1);
+// 	}
+// 	else
+// 	{
+// 		while (tab->pt_screen--)
+// 			ft_putchar_fd(' ', 1);
+// 		ft_putfnbr_base_fd(n, 10, tab, 1);
+// 	}
+// }
+
+void	ft_printf_uint(char c, int base, t_ftprintf *tab)
+{
+	const unsigned int	n = va_arg(tab->args, unsigned int);
+	const int			len = ft_unumlen(n, base);
+
+	if (c == 'X')
+		tab->upper = 1;
+	if (tab->hash_tag && n > 0)
+		tab->length += 2;
+	if (tab->precision > len)
+		tab->pad = tab->precision - len;
+	if (tab->width > tab->pad + len)
+		tab->pt_screen = tab->width - tab->pad - len;
+	tab->length += tab->length + tab->pad + len;
+	if (tab->dash)
+	{
+		ft_putfnbr_base_fd(n, base, tab, 1);
+		while (tab->pt_screen--)
+			ft_putchar_fd(' ', 1);
+	}
+	else
+	{
+		while (tab->pt_screen--)
+			ft_putchar_fd(' ', 1);
+		ft_putfnbr_base_fd(n, base, tab, 1);
 	}
 }

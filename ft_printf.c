@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 12:12:24 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 22:14:30 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:31:49 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 t_ftprintf	*ft_initialize_tab(t_ftprintf *tab)
 {
-	tab->print_screen = 0;
+	tab->pt_screen = 0;
 	tab->pad = 0;
 	tab->width = 0;
 	tab->precision = 0;
 	tab->hash_tag = 0;
 	tab->zero = 0;
 	tab->dash = 0;
-	tab->total_length = 0;
+	tab->length = 0;
 	tab->space = 0;
 	tab->plus = 0;
 	tab->point = 0;
@@ -56,11 +56,14 @@ int	ft_printf(const char	*str, ...)
 			ft_putchar_fd(str[i++], 1);
 	}
 	va_end(tab->args);
-	ret += tab->total_length;
+	ret += tab->length;
 	free(tab);
 	return (ret);
 }
 
+// printf
+// specifier (%d, %u, %c...)
+// %[flags(+, -, 0)][width].[precision][length][specifier]
 static void	pf_subprocess(char c, t_ftprintf *tab)
 {
 	if (ft_isdigit(c))
@@ -87,6 +90,16 @@ static void	pf_subprocess(char c, t_ftprintf *tab)
 		tab->space = 1;
 }
 
+/*
+	c = char
+	s = string
+	p = pointer
+	d = decimal number
+	i = integer
+	u = 符号なし十進整数
+	x = 符号なし十六進整数 (小文字)
+	X = 符号なし十六進整数 (大文字)
+*/
 static char	*pf_process(char *str, t_ftprintf *tab)
 {
 	while (*str && !ft_strchr("cspdiuxX%", *str))
@@ -103,7 +116,7 @@ static char	*pf_process(char *str, t_ftprintf *tab)
 		ft_printf_uint(*str, 10, tab);
 	else if (*str == 'x' || *str == 'X')
 		ft_printf_uint(*str, 16, tab);
-	else if (*str == '%' && ++tab->total_length)
+	else if (*str == '%' && ++tab->length)
 		ft_putchar_fd(*str, 1);
 	return (++str);
 }

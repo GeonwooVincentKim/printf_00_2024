@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 12:12:10 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 22:07:30 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:42:21 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@
 	precision
 	- precise the type (such as floating point)
 	- 浮動小数点 (1.0000000000000007)
+	- example) %.3d (12) -> 012
 	dash - (include minus)
 	percent - %
 	space - space flag ' '
 	hash tag - #
-	total_length - length of string
+	length - length of string
 	pad
 	- padding
 	- example: %010s
@@ -35,14 +36,14 @@
 typedef struct s_ftprintf
 {
 	va_list		args;
-	int			print_screen;
+	int			pt_screen;
 	int			pad;
 	int			width;
 	int			precision;
 	int			hash_tag;
 	int			zero;
 	int			dash;
-	int			total_length;
+	int			length;
 	int			space;
 	int			plus;
 	int			point;
@@ -60,7 +61,7 @@ int			ft_printf(const char	*str, ...);
 
 	va_arg(args, int)
 	-> to move to the next variable in memory
-	-> name of the variable args, type of the variable
+	-> name of the variable args (引数), type of the variable (変数型)
 
 	va_end(args)
 	-> va実行が終わったら、この関数を閉める
@@ -69,10 +70,15 @@ int			ft_printf(const char	*str, ...);
 void		ft_printf_char(t_ftprintf *tab);
 void		ft_printf_str(t_ftprintf *tab);
 void		ft_printf_ptr(t_ftprintf *tab);
-void		ft_printf_int(t_ftprintf *tab);
-void		ft_printf_unit(char c, int base, t_ftprintf *fmt);
+int			ft_printf_int(int i);
+// void		ft_printf_int(t_ftprintf *tab);
+int			ft_print_int(int n, t_ftprintf *tab);
+int			ft_print_integer(char *str, int n, t_ftprintf tab);
+int			ft_print_i(char *str, int n, t_ftprintf tab);
+void		ft_printf_unit(char c, int base, t_ftprintf *tab);
 
 // ft_printf_utils.c (part 2)
+// u -> unsigned
 void		ft_putnstr_fd(char *s, int len, int fd);
 int			ft_unumlen(unsigned long long n, int base);
 void		ft_putunbr_base_fd(unsigned long long n, int base, int fd);
