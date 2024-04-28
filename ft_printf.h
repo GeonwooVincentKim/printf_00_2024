@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 12:12:10 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 13:29:10 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/28 13:49:55 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,20 @@ typedef struct s_ftprintf
 	int			width;
 	int			precision;
 	int			zero;
-	int			p;
+	int			point;
+	int			dash;
+	int			total_length;
+	int			sign;
+	int			is_zero;
+	int			percent;
+	int			space;
 }	t_ftprintf;
 
+// ft_printf_initialize
+t_ftprintf	*ft_initialize_tab(t_ftprintf *tab);
+
 // ft_printf
-int	ft_printf(const char	*str, ...);
+int			ft_printf(const char	*str, ...);
 
 // 
 
