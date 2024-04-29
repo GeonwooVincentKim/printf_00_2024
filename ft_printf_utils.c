@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 20:42:16 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/29 13:08:11 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:08:32 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_printf_int(t_ftprintf *tab)
 	n = va_arg(tab->args, int);
 	len = ft_numlen(n, 10);
 	alen = ft_unumlen(ft_abs(n), 10);
-	test(tab, alen, n, len);
+	ft_printf_int_detail(tab, alen, n, len);
 	if (tab->dash)
 	{
 		ft_putfnbr_base_fd(n, 10, tab, 1);

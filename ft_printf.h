@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 12:12:10 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/29 13:08:02 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:37:25 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_ftprintf
 
 // ft_printf.c
 t_ftprintf	*ft_initialize_tab(t_ftprintf *tab);
-int			ft_printf(const char	*str, ...);
+// int			ft_printf(const char	*str, ...);
 
 /*
 	va_list args; -> 宣言
@@ -84,5 +84,19 @@ void		ft_putnstr_fd(char *s, int len, int fd);
 int			ft_unumlen(unsigned long long n, int base);
 void		ft_putunbr_base_fd(unsigned long long n, int base, int fd);
 void		ft_putfnbr_base_fd(long long n, int base, t_ftprintf *fmt, int fd);
+
+// test area
+int			ft_count_output(const char *save, va_list args);
+int			ft_treat_something(int c, va_list args);
+char		*ft_point_base(unsigned long long point, int base);
+char		*ft_tolower_all(char *c);
+int			ft_treat_char(char c);
+int			ft_treat_string(char *str);
+int			ft_treat_point(unsigned long long point);
+int			ft_treat_int(int i);
+int			ft_treat_uint(unsigned long long uint);
+int			ft_treat_hexa(unsigned int i, int f);
+int			ft_printf(const char	*input, ...);
+int			ft_putstr_count(char *c);
 
 #endif

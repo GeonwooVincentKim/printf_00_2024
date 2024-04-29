@@ -45,7 +45,8 @@
 
 # .PHONY:	all clean fclean re
 
-SRCS	= ft_printf.c
+# SRCS	= ft_printf.c ft_printf_utils.c ft_printf_utils_test.c libft_utils.c
+SRCS	= ft_printf_test.c ft_print_test_123.c ft_print_test_456.c ft_print_test_789.c ft_putstr_count.c
 OBJS	= $(SRCS:.c=.o)
 
 NAME	= libftprintf.a
