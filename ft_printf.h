@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 12:12:10 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 23:42:21 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:08:02 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int			ft_printf(const char	*str, ...);
 void		ft_printf_char(t_ftprintf *tab);
 void		ft_printf_str(t_ftprintf *tab);
 void		ft_printf_ptr(t_ftprintf *tab);
+void		test(t_ftprintf *tab, int alen, int n, int len);
 int			ft_printf_int(int i);
 // void		ft_printf_int(t_ftprintf *tab);
 int			ft_print_int(int n, t_ftprintf *tab);

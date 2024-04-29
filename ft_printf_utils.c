@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 20:42:16 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/28 23:40:46 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/29 13:08:11 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,36 +85,29 @@ void	ft_printf_ptr(t_ftprintf *tab)
 	}
 }
 
-// void	ft_printf_int(t_ftprintf *tab)
-// {
-// 	int	n = va_arg(tab->args, int);
-// 	int	len;
-// 	int	alen;
+void	ft_printf_int(t_ftprintf *tab)
+{
+	int	n;
+	int	len;
+	int	alen;
 
-// 	len = ft_numlen(n, 10);
-// 	alen = ft_unumlen(ft_abs(n), 10);
-// 	if (tab->precision > alen)
-// 		tab->pad = tab->precision - alen;
-// 	if (tab->zero && n < 0 && tab->pad)
-// 		--tab->pad;
-// 	if (tab->width > tab->pad + len)
-// 		tab->pt_screen = tab->pt_screen - tab->pad - len;
-// 	if ((tab->space || tab->plus) && n >= 0 && ++tab->length && tab->pt_screen)
-// 		--tab->pt_screen;
-// 	tab->length += tab->pt_screen + tab->pad + len;
-// 	if (tab->dash)
-// 	{
-// 		ft_putfnbr_base_fd(n, 10, tab, 1);
-// 		while (tab->pt_screen--)
-// 			ft_putchar_fd(' ', 1);
-// 	}
-// 	else
-// 	{
-// 		while (tab->pt_screen--)
-// 			ft_putchar_fd(' ', 1);
-// 		ft_putfnbr_base_fd(n, 10, tab, 1);
-// 	}
-// }
+	n = va_arg(tab->args, int);
+	len = ft_numlen(n, 10);
+	alen = ft_unumlen(ft_abs(n), 10);
+	test(tab, alen, n, len);
+	if (tab->dash)
+	{
+		ft_putfnbr_base_fd(n, 10, tab, 1);
+		while (tab->pt_screen--)
+			ft_putchar_fd(' ', 1);
+	}
+	else
+	{
+		while (tab->pt_screen--)
+			ft_putchar_fd(' ', 1);
+		ft_putfnbr_base_fd(n, 10, tab, 1);
+	}
+}
 
 void	ft_printf_uint(char c, int base, t_ftprintf *tab)
 {
