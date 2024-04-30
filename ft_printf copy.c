@@ -3,50 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mcombeau <mcombeau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/28 12:12:24 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/29 18:56:27 by geonwkim         ###   ########.fr       */
+/*   Created: 2021/12/10 13:21:32 by mcombeau          #+#    #+#             */
+/*   Updated: 2022/01/27 17:31:12 by mcombeau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
+#include "ft_printf.h"
 
-t_ftprintf	*ft_initialize_tab(t_ftprintf *tab)
-{
-	tab->pt_screen = 0;
-	tab->pad = 0;
-	tab->width = 0;
-	tab->precision = 0;
-	tab->hash_tag = 0;
-	tab->zero = 0;
-	tab->dash = 0;
-	tab->length = 0;
-	tab->space = 0;
-	tab->plus = 0;
-	tab->point = 0;
-	tab->upper = 0;
-	return (tab);
-}
-
-// str[++i] - while the string exists
-// &str[i] - print what you need
-// i + 1 - start evaluate from the character after the %
-
-// printf
-// specifier (%d, %u, %c...)
-// %[flags(+, -, 0)][width].[precision][length][specifier]
-/*
-	c = char
-	s = string
-	p = pointer
-	d = decimal number
-	i = integer
-	u = 符号なし十進整数
-	x = 符号なし十六進整数 (小文字)
-	X = 符号なし十六進整数 (大文字)
-*/
-int	ft_print_arg(char type, va_list args, t_ftprintf flags)
+int	ft_print_arg(char type, va_list args, t_flags flags)
 {
 	int	count;
 
@@ -66,8 +32,7 @@ int	ft_print_arg(char type, va_list args, t_ftprintf flags)
 	else if (type == 'u')
 		count += ft_print_unsigned(va_arg(args, unsigned int), flags);
 	else if (type == 'p')
-		count += ft_print_ptr((unsigned long int)va_arg(args, void *),
-				flags);
+		count += ft_print_ptr((unsigned long int)va_arg(args, void *), flags);
 	return (count);
 }
 
@@ -100,6 +65,38 @@ int	ft_parse_flags(const char *str, int i, va_list args, t_flags *flags)
 	return (i);
 }
 
+#if defined(__linux__) || defined(__gnu_linux__)
+
+int	ft_parse(char *str, va_list args)
+{
+	int		i;
+	int		x;
+	int		count;
+	t_flags	flags;
+
+	i = -1;
+	count = 0;
+	while (str[++i])
+	{
+		flags = ft_flags_init();
+		if (str[i] == '%' && str[i + 1] != '\0')
+		{
+			x = ft_parse_flags(str, i, args, &flags);
+			if (flags.spec > 0)
+				i = x;
+			if (str[i] != '\0' && flags.spec > 0 && ft_istype(str[i]))
+				count += ft_print_arg(str[i], args, flags);
+			else if (str[i] != '\0')
+				count += ft_print_c(str[i]);
+		}
+		else
+			count += ft_print_c(str[i]);
+	}
+	return (count);
+}
+
+#else
+
 int	ft_parse(char *str, va_list args)
 {
 	int		i;
@@ -124,6 +121,8 @@ int	ft_parse(char *str, va_list args)
 	}
 	return (count);
 }
+
+#endif
 
 int	ft_printf(const char *format, ...)
 {
