@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/28 12:12:10 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/30 15:52:11 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 22:08:47 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ char	*ft_tolower_all(char *c);
 char	*ft_point_base(unsigned long long point, int base);
 
 // ft_treat_decimal.c
-int		ft_treat_uint(unsigned long long uint);
+int		ft_treat_uint(unsigned int uint);
 int		ft_treat_hexa(unsigned int i, int f);
 
 // ft_treat_non_primitive.c

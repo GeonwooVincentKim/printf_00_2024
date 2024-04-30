@@ -6,17 +6,17 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 15:37:19 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/30 15:45:51 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/04/30 22:08:30 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	ft_put_unbr_count(unsigned long long n)
+static int	ft_put_unbr_count(unsigned int n)
 {
-	char				str;
-	unsigned long long	tmp;
-	size_t				t;
+	char			str;
+	unsigned int	tmp;
+	size_t			t;
 
 	tmp = n;
 	t = 0;
@@ -33,7 +33,7 @@ static int	ft_put_unbr_count(unsigned long long n)
 	return (t);
 }
 
-int	ft_treat_uint(unsigned long long uint)
+int	ft_treat_uint(unsigned int uint)
 {
 	int	n;
 
