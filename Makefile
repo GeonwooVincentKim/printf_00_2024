@@ -46,7 +46,8 @@
 # .PHONY:	all clean fclean re
 
 # SRCS	= ft_printf.c ft_printf_utils.c ft_printf_utils_test.c libft_utils.c
-SRCS	= ft_printf_test.c ft_print_test_123.c ft_print_test_456.c ft_print_test_789.c ft_putstr_count.c
+# SRCS	= ft_printf_test.c ft_print_test_123.c ft_print_test_456.c ft_print_test_789.c ft_putstr_count.c
+SRCS 	= ft_base.c ft_printf_utils.c ft_printf.c ft_treat_decimal.c ft_treat_non_primitive.c ft_treat_primitive.c
 OBJS	= $(SRCS:.c=.o)
 
 NAME	= libftprintf.a
@@ -60,7 +61,8 @@ LIBFT	= ./libft/libft.a
 
 $(NAME): $(OBJS)
 	$(MAKE) -C ./libft
-	ar rcs $(NAME) $(OBJS)
+	cp libft/libft.a $(NAME)
+	ar -rcs $(NAME) $(OBJS)
 
 all: $(NAME)
 

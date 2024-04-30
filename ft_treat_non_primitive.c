@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_test.c                                   :+:      :+:    :+:   */
+/*   ft_treat_non_primitive.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 14:32:35 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/29 14:33:52 by geonwkim         ###   ########.fr       */
+/*   Created: 2024/04/30 15:40:34 by geonwkim          #+#    #+#             */
+/*   Updated: 2024/04/30 15:51:54 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char	*input, ...)
+int	ft_treat_point(unsigned long long point)
 {
-	const char	*save;
-	va_list		args;
-	int			num;
+	char	*p;
+	int		n;
 
-	num = 0;
-	save = ft_strdup(input);
-	if (!save)
-		return (0);
-	va_start(args, input);
-	num = ft_count_output(save, args);
-	va_end(args);
-	free((char *)save);
-	return (num);
+	p = ft_tolower_all(ft_point_base(point, 16));
+	n = ft_putstr_count("0x");
+	n += ft_putstr_count(p);
+	free(p);
+	return (n);
+}
+
+int	ft_treat_string(char *str)
+{
+	int	n;
+
+	if (str == NULL)
+		str = "(null)";
+	n = ft_strlen(str);
+	ft_putstr_fd(str, 1);
+	return (n);
 }

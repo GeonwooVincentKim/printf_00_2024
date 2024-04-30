@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_test_789.c                                :+:      :+:    :+:   */
+/*   ft_treat_decimal.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 14:29:03 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/29 14:30:25 by geonwkim         ###   ########.fr       */
+/*   Created: 2024/04/30 15:37:19 by geonwkim          #+#    #+#             */
+/*   Updated: 2024/04/30 15:45:51 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-int	ft_treat_int(int i)
-{
-	char	*str;
-	int		n;
-
-	str = ft_itoa(i);
-	n = ft_putstr_count(str);
-	free(str);
-	return (n);
-}
 
 static int	ft_put_unbr_count(unsigned long long n)
 {
@@ -40,7 +29,8 @@ static int	ft_put_unbr_count(unsigned long long n)
 		ft_put_unbr_count(n / 10);
 	str = '0' + n % 10;
 	write(1, &str, 1);
-	return (t + 1);
+	t = t + 1;
+	return (t);
 }
 
 int	ft_treat_uint(unsigned long long uint)
@@ -48,7 +38,7 @@ int	ft_treat_uint(unsigned long long uint)
 	int	n;
 
 	n = 0;
-	n = ft_put_unbr_count(uint, 1);
+	n = ft_put_unbr_count(uint);
 	return (n);
 }
 
